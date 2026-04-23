@@ -186,3 +186,11 @@ else:
                         update_send_schedule(app_id, 0, None)
                         st.success("Schedule cancelled!")
                         st.rerun()
+
+                    st.divider()
+
+            # ---- DELETE SECTION ----
+            if st.button("🗑️ Delete Application", key=f"delete_{app_id}", type="secondary"):
+                delete_application(app_id)
+                st.success("Application deleted!")
+                st.rerun()
