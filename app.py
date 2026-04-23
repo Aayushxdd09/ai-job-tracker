@@ -30,23 +30,27 @@ st.markdown("Track your applications, generate AI emails, and manage your job hu
 st.divider()
 
 # ---- SIDEBAR — ADD NEW JOB ----
+# ---- SIDEBAR — ADD NEW JOB ----
 with st.sidebar:
     st.header("➕ Add New Job")
 
-    with st.form("add_job_form", clear_on_submit=True):
-        company_name = st.text_input("Company Name", placeholder="e.g. Google")
-        job_title = st.text_input("Job Title", placeholder="e.g. AI Engineer Intern")
-        job_description = st.text_area("Job Description", placeholder="Paste the job description here...", height=150)
-        contact_email = st.text_input("HR Email", placeholder="e.g. hr@company.com")
-        submitted = st.form_submit_button("Add Application", use_container_width=True, type="primary")
+    company_name = st.text_input("Company Name", placeholder="e.g. Google", key="input_company")
+    job_title = st.text_input("Job Title", placeholder="e.g. AI Engineer Intern", key="input_title")
+    job_description = st.text_area("Job Description", placeholder="Paste the job description here...", height=150, key="input_desc")
+    contact_email = st.text_input("HR Email", placeholder="e.g. hr@company.com", key="input_email")
 
-        if submitted:
-            if company_name and job_title and job_description and contact_email:
-                add_application(company_name, job_title, job_description, contact_email)
-                st.success(f"✅ Added {company_name} - {job_title}")
-                st.rerun()
-            else:
-                st.error("Please fill in all fields.")
+    if st.button("Add Application", use_container_width=True, type="primary"):
+        if company_name and job_title and job_description and contact_email:
+            add_application(company_name, job_title, job_description, contact_email)
+            st.success(f"✅ Added {company_name} - {job_title}")
+            # Clear fields using session state
+            st.session_state.input_company = ""
+            st.session_state.input_title = ""
+            st.session_state.input_desc = ""
+            st.session_state.input_email = ""
+            st.rerun()
+        else:
+            st.error("Please fill in all fields.")
 
 # ---- FETCH ALL APPLICATIONS ----
 applications = get_all_applications()
