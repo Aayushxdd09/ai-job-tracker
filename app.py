@@ -24,46 +24,29 @@ st.set_page_config(
 create_table()
 migrate_database()
 
-
 # ---- HEADER ----
 st.title("💼 AI Job Application Tracker")
 st.markdown("Track your applications, generate AI emails, and manage your job hunt — all in one place.")
 st.divider()
 
 # ---- SIDEBAR — ADD NEW JOB ----
-st.sidebar.header("➕ Add New Job")
-
-# ---- SIDEBAR — ADD NEW JOB ----
-st.sidebar.header("➕ Add New Job")
-
-# Initialize session state for form fields
-if "company_name" not in st.session_state:
-    st.session_state.company_name = ""
-if "job_title" not in st.session_state:
-    st.session_state.job_title = ""
-if "job_description" not in st.session_state:
-    st.session_state.job_description = ""
-if "contact_email" not in st.session_state:
-    st.session_state.contact_email = ""
-
 with st.sidebar:
-    company_name = st.text_input("Company Name", placeholder="e.g. Google", value=st.session_state.company_name)
-    job_title = st.text_input("Job Title", placeholder="e.g. AI Engineer Intern", value=st.session_state.job_title)
-    job_description = st.text_area("Job Description", placeholder="Paste the job description here...", height=150, value=st.session_state.job_description)
-    contact_email = st.text_input("HR Email", placeholder="e.g. hr@company.com", value=st.session_state.contact_email)
+    st.header("➕ Add New Job")
 
-    if st.button("Add Application", use_container_width=True):
-        if company_name and job_title and job_description and contact_email:
-            add_application(company_name, job_title, job_description, contact_email)
-            st.success(f"✅ Added {company_name} - {job_title}")
-            # Clear all fields after adding
-            st.session_state.company_name = ""
-            st.session_state.job_title = ""
-            st.session_state.job_description = ""
-            st.session_state.contact_email = ""
-            st.rerun()
-        else:
-            st.error("Please fill in all fields.")
+    with st.form("add_job_form", clear_on_submit=True):
+        company_name = st.text_input("Company Name", placeholder="e.g. Google")
+        job_title = st.text_input("Job Title", placeholder="e.g. AI Engineer Intern")
+        job_description = st.text_area("Job Description", placeholder="Paste the job description here...", height=150)
+        contact_email = st.text_input("HR Email", placeholder="e.g. hr@company.com")
+        submitted = st.form_submit_button("Add Application", use_container_width=True)
+
+        if submitted:
+            if company_name and job_title and job_description and contact_email:
+                add_application(company_name, job_title, job_description, contact_email)
+                st.success(f"✅ Added {company_name} - {job_title}")
+                st.rerun()
+            else:
+                st.error("Please fill in all fields.")
 
 # ---- FETCH ALL APPLICATIONS ----
 applications = get_all_applications()
@@ -188,7 +171,6 @@ else:
 
                 send_datetime = st.date_input("Send Date", value=default_time.date(), key=f"date_{app_id}")
                 send_time = st.time_input("Send Time", value=default_time.time(), key=f"time_{app_id}")
-
                 combined_datetime = datetime.combine(send_datetime, send_time)
 
                 if st.button("Set Schedule", key=f"set_schedule_{app_id}"):
@@ -202,7 +184,7 @@ else:
                         st.success("Schedule cancelled!")
                         st.rerun()
 
-                    st.divider()
+            st.divider()
 
             # ---- DELETE SECTION ----
             if st.button("🗑️ Delete Application", key=f"delete_{app_id}", type="secondary"):
