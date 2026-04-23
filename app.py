@@ -33,16 +33,34 @@ st.divider()
 # ---- SIDEBAR — ADD NEW JOB ----
 st.sidebar.header("➕ Add New Job")
 
+# ---- SIDEBAR — ADD NEW JOB ----
+st.sidebar.header("➕ Add New Job")
+
+# Initialize session state for form fields
+if "company_name" not in st.session_state:
+    st.session_state.company_name = ""
+if "job_title" not in st.session_state:
+    st.session_state.job_title = ""
+if "job_description" not in st.session_state:
+    st.session_state.job_description = ""
+if "contact_email" not in st.session_state:
+    st.session_state.contact_email = ""
+
 with st.sidebar:
-    company_name = st.text_input("Company Name", placeholder="e.g. Google")
-    job_title = st.text_input("Job Title", placeholder="e.g. AI Engineer Intern")
-    job_description = st.text_area("Job Description", placeholder="Paste the job description here...", height=150)
-    contact_email = st.text_input("HR Email", placeholder="e.g. hr@company.com")
+    company_name = st.text_input("Company Name", placeholder="e.g. Google", value=st.session_state.company_name)
+    job_title = st.text_input("Job Title", placeholder="e.g. AI Engineer Intern", value=st.session_state.job_title)
+    job_description = st.text_area("Job Description", placeholder="Paste the job description here...", height=150, value=st.session_state.job_description)
+    contact_email = st.text_input("HR Email", placeholder="e.g. hr@company.com", value=st.session_state.contact_email)
 
     if st.button("Add Application", use_container_width=True):
         if company_name and job_title and job_description and contact_email:
             add_application(company_name, job_title, job_description, contact_email)
             st.success(f"✅ Added {company_name} - {job_title}")
+            # Clear all fields after adding
+            st.session_state.company_name = ""
+            st.session_state.job_title = ""
+            st.session_state.job_description = ""
+            st.session_state.contact_email = ""
             st.rerun()
         else:
             st.error("Please fill in all fields.")
