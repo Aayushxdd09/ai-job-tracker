@@ -38,7 +38,7 @@ with st.sidebar:
         job_title = st.text_input("Job Title", placeholder="e.g. AI Engineer Intern")
         job_description = st.text_area("Job Description", placeholder="Paste the job description here...", height=150)
         contact_email = st.text_input("HR Email", placeholder="e.g. hr@company.com")
-        submitted = st.form_submit_button("Add Application", use_container_width=True)
+        submitted = st.form_submit_button("Add Application", use_container_width=True, type="primary")
 
         if submitted:
             if company_name and job_title and job_description and contact_email:
