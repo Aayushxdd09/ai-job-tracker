@@ -13,12 +13,12 @@ generate personalized cold emails using AI, and send them automatically via Gmai
 ---
 
 ## 🚀 Live Demo
-[Click here to view the live app](#) ← (add Streamlit URL after deployment)
+[Click here to view the live app](https://ai-job-tracker-ayush.streamlit.app)
 
 ---
 
 ## 📸 Screenshot
-![App Screenshot](#) ← (add screenshot after deployment)
+![App Screenshot](screenshot.png)
 
 ---
 
