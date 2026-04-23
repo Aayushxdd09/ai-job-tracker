@@ -24,10 +24,6 @@ st.set_page_config(
 create_table()
 migrate_database()
 
-# ---- CACHE DATA ----
-'''@st.cache_data
-def get_cached_applications():
-    return get_all_applications()'''
 
 # ---- HEADER ----
 st.title("💼 AI Job Application Tracker")
