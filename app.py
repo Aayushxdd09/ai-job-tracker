@@ -24,9 +24,9 @@ create_table()
 migrate_database()
 
 # ---- CACHE DATA ----
-@st.cache_data
+'''@st.cache_data
 def get_cached_applications():
-    return get_all_applications()
+    return get_all_applications()'''
 
 # ---- HEADER ----
 st.title("💼 AI Job Application Tracker")
@@ -51,7 +51,7 @@ with st.sidebar:
             st.error("Please fill in all fields.")
 
 # ---- FETCH ALL APPLICATIONS ----
-applications = get_cached_applications()
+applications = get_all_applications()
 
 if not applications:
     st.info("No applications yet. Add your first job from the sidebar!")
