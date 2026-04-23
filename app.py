@@ -8,7 +8,8 @@ from database import (
     update_status,
     save_generated_email,
     update_send_schedule,
-    migrate_database
+    migrate_database,
+    delete_application
 )
 from ai_email import generate_cold_email
 
