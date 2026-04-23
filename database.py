@@ -95,6 +95,14 @@ def update_send_schedule(app_id, send_scheduled, send_time):
         conn.commit()
     print(f"Send schedule updated for ID {app_id}")
 
+def delete_application(app_id):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM applications WHERE id = ?", (app_id,))
+        conn.commit()
+    print(f"Deleted application ID {app_id}")
+
+    
 # Run this file directly to initialize the database
 if __name__ == "__main__":
     create_table()
