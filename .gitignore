@@ -1,0 +1,12 @@
+# Secret files — never push these
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Database file (optional — remove this line if you want to keep sample data)
+job_tracker.db
+
+# VS Code settings
+.vscode/
